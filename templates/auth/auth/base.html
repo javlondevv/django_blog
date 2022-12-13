@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'auth/css/material-design-iconic-font.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'auth/css/style.css' %}">
+    <meta name="robots" content="noindex, follow">
+</head>
+<body>
+<div class="main">
+    {% block main_content %}{% endblock %}
+</div>
+
+<script async src="https://www.googlecategorymanager.com/gcategory/js?id=UA-23581568-13"></script>
+<script src="{% static 'auth/js/beacon.js' %}"></script>
+</body>
+</html>

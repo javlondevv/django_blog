@@ -1,0 +1,80 @@
+{% extends 'apps/parts/base.html' %}
+{% block title %} Category{% endblock %}
+{% load static %}
+{% block content %}
+    <div class="no-pd" id="content">
+        <div class="container">
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="index.html"> <i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li class="active"><a href="#">Category</a></li>
+                </ul>
+            </div>
+            <div class="category">
+                <div class="row">
+                    {% include 'apps/parts/trending.html' %}
+                    <div class="col-12 col-md-7 col-lg-8 order-md-1">
+                        <div class="category__header">
+                            <div class="category__header__text">
+                                <h5>Categories:</h5>
+                                <a href="{% url 'blog_category_view' %}?category={{ category.slug }}">{{ category.name }}</a>
+                            </div>
+                            <div class="category__header__filter">
+                            </div>
+                        </div>
+                        <div class="category_content">
+                            {% for blog in blogs %}
+
+
+                                <div class="post-card -small -horizontal">
+                                    <a class="card__cover" href="{% url 'post_view' blog.slug %}" tabindex="0"><img
+                                            src="{{ blog.main_picture.url }}"
+                                            alt=""></a>
+                                    <div class="card__content">
+                                        <h5 class="card__content-category">{{ blog.category.first.name }}</h5>
+                                        <a class="card__content-title" href="{% url 'post_view' blog.slug %}"
+                                           tabindex="0">{{ blog.title }}
+                                            React</a>
+                                        <div class="card__content-info">
+                                            <div class="info__time"><i class="far fa-clock"></i>
+                                                <p>{{ blog.created_at }}</p>
+                                            </div>
+                                            <div class="info__comment"><i class="far fa-comment"></i>
+                                                <p>{{ blog.comment_count }}</p>
+                                            </div>
+                                        </div>
+                                        <p class="card__content-description">{{ blog.description|striptags|truncatechars:150 }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                        {% if page_obj.has_other_pages %}
+                            <div class="pagination">
+                            <ul>
+                                {% if page_obj.has_previous %}
+                                    <li class="active"><a href="?page={{ page_obj.previous_page_number }}"><</a>
+                                    </li>
+                                {% endif %}
+                                {% for i in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == i %}
+                                        <li class="active"><span>{{ i }}</span></li>
+                                    {% else %}
+                                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li><a href="?page={{ page_obj.next_page_number }}">>></a></li>
+                                {% else %}
+                                    <li class="disabled"><span>>></span></li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'apps/parts/base.html' %}
+{% block title %} Contact {% endblock title %}
+{% block content %}
+    <div class="no-pd" id="content">
+        <div class="container">
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="index.html"> <i class="fas fa-home"></i>Home</a></li>
+                    <li class="active"><a href="#">Contact us</a></li>
+                </ul>
+            </div>
+            <div class="contact-us">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="contact-us__info">
+                            <h3 class="contact-title">GET IN TOUCH</h3>
+                            <p class="contact-description">At the bottom of the Contact Us page, there is an area where visitors can browse through Zendesk product support options and review Zendesk office locations. It's clear that the company took the time to build this page with its buyer personas in mind. It considered what users might be looking for on the contact page and added those items as additional resources.</p>
+                            <div class="contact-method">
+                                <div class="contact-method__item"><i class="fas fa-map-marker-alt"></i>
+                                    <p>Uzbekistan ,Tashkent</p>
+                                </div>
+                                <div class="contact-method__item"><i class="fas fa-mobile-alt"></i>
+                                    <p>+998933934050</p>
+                                </div>
+                                <div class="contact-method__item"><i class="far fa-envelope-open"></i></i>
+                                    <p>baxtiyorovjavlon8@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-us__social">
+                            <h3 class="contact-title">GET IN TOUCH</h3>
+                            <div class="social-block"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i
+                                    class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a
+                                    href="#"><i class="fab fa-dribbble"></i></a></div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="contact-us__form">
+                            <h3 class="contact-title">LEAVE A MESSAGE</h3>
+                            <form action="/">
+                                <input type="text" placeholder="Name" name="name"/>
+                                <textarea name="message" cols="30" rows="8" placeholder="Message"></textarea>
+                                <button class="btn -normal" value="post">Send message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="subcribe-bar">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="subcribe-bar__content">
+                            <h5>Don’t miss our future updates!</h5>
+                            <h3>Get Subscribe today!</h3>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <form class="subcribe-bar__form" action="/">
+                            <input type="text" placeholder="You email"/>
+                            <button class="btn -normal">Subcribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+  
