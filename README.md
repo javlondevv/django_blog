@@ -1,4 +1,4 @@
-Hello guys and welcome to my django blog project. This project can help to learn django and make blog website which is simply understandable for all. As you see there are very simple and clean code for all.
+Hello guys and welcome to my django blog project. This project can help you to learn django and make blog website which is simply understandable for all. As you see there are very simple and clean code for all.
 
 
 FEATURES:
