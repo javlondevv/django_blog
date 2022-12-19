@@ -1,10 +1,12 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
+
 from django_resized import ResizedImageField
 
 # Create your models here.
 from django.db.models import EmailField, CharField, Model, SlugField, ImageField, ForeignKey, SET_NULL, ManyToManyField, \
-    DateField, TextField, SET_DEFAULT, CASCADE, TextChoices, IntegerField, DateTimeField
+    DateField, TextField, SET_DEFAULT, CASCADE, TextChoices, IntegerField, DateTimeField, JSONField
 from django.utils.html import format_html
 from django.utils.text import slugify
 
@@ -13,6 +15,7 @@ class User(AbstractUser):
     email = EmailField(max_length=255, unique=True)
     phone = CharField(max_length=255, unique=True)
     image = ImageField(upload_to='%m', null=True, blank=True, max_length=300)
+    biography = TextField(null=True, blank=True)
 
     # bio = TextField(null=True,blank=True)
 
@@ -60,6 +63,20 @@ class Category(Model):
         return self.name
 
 
+from django.db.models import Manager
+
+
+class ActivePostManager(Manager):
+    def get_queryset(self):
+        return super().get_queryset().all()
+
+    def active_posts(self):
+        return super().get_queryset().filter(status=Post.Status.ACTIVE)
+
+    def trending_posts(self):
+        return super().get_queryset().order_by('-created_at')
+
+
 class Post(Model):
     class Status(TextChoices):
         PENDING = 'pending', 'kutilmoqda'
@@ -71,10 +88,11 @@ class Post(Model):
     category = ManyToManyField(Category, blank=True)
     description = RichTextUploadingField()
     main_picture = ResizedImageField(size=[500, 300], upload_to='%m')
-    views = IntegerField(default=0)
     slug = SlugField(max_length=255, unique=True)
     status = CharField(max_length=50, choices=Status.choices, default=Status.PENDING)
     created_at = DateTimeField(auto_now_add=True)
+    active = ActivePostManager()
+    objects = Manager()
 
     def status_button(self):
         if self.status == Post.Status.PENDING:
@@ -119,6 +137,23 @@ class Post(Model):
         return self.comment_set.count()
 
 
+class AboutUs(Model):
+    image = ImageField(upload_to='%m')
+    about = TextField()
+    location = CharField(max_length=255)
+    email = EmailField(max_length=255)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$')
+    phone = CharField(validators=[phone_regex], max_length=17, blank=True)
+    social_accounts = JSONField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Biz Haqimizda'
+        verbose_name_plural = 'Biz Haqimizda'
+
+    def __str__(self):
+        return format_html(f'<i>{self.about[:50]}</i>')
+
+
 class Comment(Model):
     comment = TextField()
     author = ForeignKey('apps.User', CASCADE)
@@ -128,3 +163,11 @@ class Comment(Model):
     class Meta:
         verbose_name = 'Kamentariya'
         verbose_name_plural = 'Kamentariyalar'
+
+
+class PostViewHistory(Model):
+    post = ForeignKey(Post, CASCADE)
+    viewed_at = DateTimeField(auto_now_add=True)
+
+    def str(self):
+        return f'{self.post.title} at {self.viewed_at}'

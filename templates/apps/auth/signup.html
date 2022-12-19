@@ -49,7 +49,7 @@
 						</span>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" name="email" placeholder="Email">
+                    <input class="input100" type="text" name="email" placeholder="mail@mail.ru">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="wrap-input100 validate-input">
 
-                    <input class="input100" type="tel" name="phone" placeholder="phone">
+                    <input class="input100" type="tel" id="phone" name="phone" placeholder="+998 (99) 999 99 99">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-phone"></i>
@@ -81,6 +81,24 @@
                 <div class="container-login100-form-btn">
                     <input type="submit" value="SIGN UP" class="login100-form-btn">
                 </div>
+                <div>
+                    <a href="/accounts/github/login/">
+                        <button type="submit" class="btn btn-outline-dark mt-2" data-fa-transform="grow-8">
+                            <i class="fa fa-github-square"></i>Sign-Up With GitHub
+                        </button>
+                    </a>
+                </div>
+
+                <div class="row g-2 mt-2">
+                    <ul>
+                        {#                    <form action="/accounts/google/login/"  method="post">#}
+                        {#                        {% csrf_token %}#}
+                        <button type="submit" class="btn  btn-outline-dark  mt-2">
+                            <i class="fa fa-google-plus-square"></i>Sign-Up With Google
+                        </button>
+                    </ul>
+                    {#                    </form>#}
+                </div>
 
                 <div class="text-center p-t-136">
                     <a class="txt2" href="{% url 'login_view' %}">
@@ -99,6 +117,13 @@
 <script src="{% static '/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
 <script src="{% static '/vendor/select2/select2.min.js' %}"></script>
 <script src="{% static '/vendor/tilt/tilt.jquery.min.js' %}"></script>
+<script src="{% static '/js/jquery.maskedinput.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $("#phone").mask("(99) 999-99-99");
+    });
+
+</script>
 
 <script src="{% static '/js/main.js' %}"></script>
 

@@ -1,74 +1,103 @@
 {% extends 'apps/parts/base.html' %}
-{% block title %}
-    Create Post
-{% endblock %}
+{% load static %}
 {% block content %}
-    <div class="container px-4 mt-4">
-        {#        <hr class="mt-0 mb-4">#}
-        <form method="post" action="{% url 'add_post_view' %}" enctype="multipart/form-data" class="needs-validation"
-              novalidate>
+    <main>
 
-            <div class="row">
-                {% csrf_token %}
-                <div class="col-xl-12">
-                    <!-- Account details card-->
-                    <div class="card mb-4">
-                        <div class="card-header">Create new post</div>
-                        <div class="card-body">
-                            <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (first name)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="title">Title</label>
-                                    <input class="form-control" id="title" type="text"
-                                           placeholder="Enter post title" name="title" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
+        <!-- =======================
+        Main contain START -->
+        <section class="py-4">
+            <div class="container">
+                <div class="row pb-4">
+                    <div class="col-12">
+                        <!-- Title -->
+                        <h1 class="mb-0 h2">Create a post</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Chart START -->
+                        <div class="card border">
+                            <!-- Card body -->
+                            <div class="card-body">
+                                <!-- Form START -->
+                                <form method="post" enctype="multipart/form-data" action="{% url 'add_post_view' %}">
+                                    {% csrf_token %}
+
+                                    <!-- Main form -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <!-- Post name -->
+                                            <div class="mb-3">
+                                                <label class="form-label">Post name</label>
+                                                <input required id="con-name" name="title" type="text"
+                                                       class="form-control" placeholder="Post name">
+                                                <small>Enter title here</small>
+                                            </div>
+                                        </div>
+                                        <!-- Short description -->
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Description </label>
+                                                <textarea id="editor1" class="form-control" rows="3"
+                                                          placeholder="Add description" name="description"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <!-- Image -->
+                                                <div class="position-relative">
+                                                    <h6 class="my-2">Upload post image here, or<a href="#"
+                                                                                                  class="text-primary">
+                                                        Browse</a></h6>
+                                                    <label class="w-100" style="cursor:pointer;">
+                      <span>
+                        <input class="form-control stretched-link" type="file" name="main_picture" id="image"
+                               accept="image/gif, image/jpeg, image/png">
+                      </span>
+                                                    </label>
+                                                </div>
+                                                <p class="small mb-0 mt-2"><b>Note:</b> Only JPG, JPEG and PNG. Our
+                                                    suggested dimensions are 600px * 450px. Larger image will be cropped
+                                                    to 4:3 to fit our thumbnails/previews.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <!-- Message -->
+                                            <div class="mb-3">
+                                                <label class="form-label">Category</label>
+                                                <select class="form-select" aria-label="Default select example"
+                                                        name="category" required multiple>
+                                                    {% for custom_category in custom_categories %}
+                                                        <option value="{{ custom_category.id }}">{{ custom_category.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- Create post button -->
+                                        <div class="col-md-12 text-start">
+                                            <button class="btn btn-danger w-100" type="submit">Create post</button>
+                                        </div>
                                     </div>
-                                    <div class="invalid-feedback">
-                                        Please provide a title.
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="file">Banner image</label>
-                                    <input class="form-control" id="file" type="file" name="pic" accept="image/*"
-                                           required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please provide an image.
-                                    </div>
-                                </div>
+                                </form>
+                                <!-- Form END -->
                             </div>
-                            <!-- Form Row        -->
-                            <div class="mb-3">
-                                <label class="small mb-1" for="category">Category</label>
-                                <select id="category" name="category" class="custom-select" required multiple>#}
-                                    {% for category in categories %}
-                                        <option value="{{ category.id }}">{{ category.name }}</option>
-                                    {% endfor %}
-                                </select>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Select at least one category.
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="editor1">Content</label>
-                                <textarea name="content" id="editor1" rows="10" cols="80" required></textarea>
-                            </div>
-                            <!-- Save changes button-->
-                            <input class="btn btn-info" type="submit" value="Submit post">
                         </div>
+                        <!-- Chart END -->
                     </div>
                 </div>
             </div>
-        </form>
+        </section>
+        <!-- =======================
+        Main convaaaytain END -->
 
-    </div>
+    </main>
 {% endblock %}
 
+<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
 
+<!-- Vendors -->
+<script src="{% static 'assets/js/apexcharts.min.js' %}"></script>
+<script src="{% static 'assets/js/quill.min.js' %}"></script>
+
+<!-- Template Functions -->
+<script src="{% static 'assets/js/functions.js' %}"></script>

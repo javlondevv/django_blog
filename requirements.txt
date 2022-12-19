@@ -5,3 +5,6 @@ django-js-asset==2.0.0
 Pillow==9.3.0
 psycopg2-binary==2.9.5
 sqlparse==0.4.3
+xhtml2pdf~=0.2.8
+celery~=5.2.7
+six~=1.16.0

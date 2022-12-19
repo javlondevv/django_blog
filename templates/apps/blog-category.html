@@ -25,8 +25,6 @@
                         </div>
                         <div class="category_content">
                             {% for blog in blogs %}
-
-
                                 <div class="post-card -small -horizontal">
                                     <a class="card__cover" href="{% url 'post_view' blog.slug %}" tabindex="0"><img
                                             src="{{ blog.main_picture.url }}"

@@ -24,7 +24,7 @@ class RegisterForm(ModelForm):
 class EditProfile(ModelForm):
     class Meta:
         model = User
-        fields = ('image', 'first_name', 'last_name', 'email', 'phone')
+        fields = ('image', 'first_name', 'last_name', 'email', 'phone', 'biography')
 
 
 @atomic
@@ -42,7 +42,8 @@ class LeaveCommentForm(ModelForm):
     class Meta:
         model = Comment
         # fields = ('author', 'comment', 'created_at')
-        exclude =()
+        exclude = ()
+
 
 class LoginForm(AuthenticationForm):
     def clean_password(self):
@@ -90,45 +91,22 @@ class AddPostForm(ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'main_picture', 'category')
+        fields = ('title', 'main_picture', 'category', 'description')
 
 
 class ChangePasswordForm(ModelForm):
     def clean_password(self):
-        password = self.data.get('password')
         user = self.instance
+        password = self.data.get('password')
         new_password = self.data.get('new_password')
         confirm_password = self.data.get('confirm_password')
         if new_password == confirm_password:
             if user.check_password(password):
                 return make_password(new_password)
-            raise ValidationError(' Incorrect password ')
-        raise ValidationError('Incorrect new password')
+            raise ValidationError('Old password isn\'t correct!')
+        raise ValidationError('New Password did not match!')
 
     class Meta:
         model = User
         fields = ('password',)
 
-
-class ResetPasswordForm(ModelForm):
-    def clean(self):
-        password = self.data.get('password')
-        confirm_password = self.data.get('confirm_password')
-        if password != confirm_password:
-            raise ValidationError('Please enter same password as new password')
-        try:
-            pk = force_str(urlsafe_base64_decode(self.data.get('user')))
-            user = User.objects.get(pk=pk)
-        except:
-            user = None
-        if not user:
-            raise ValidationError("User isn't found. Please enter correct username!")
-        user.password = make_password(password)
-        return User
-
-    def is_valid(self):
-        return super().is_valid() and self.clean()
-
-    class Meta:
-        model = User
-        fields = ('password',)

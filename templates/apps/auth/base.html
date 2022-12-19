@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+    <!-- Google fonts -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.13.0/css/pro.min.css"/>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/images/favicon.png' %}"/>
+    <!--build:css assets/css/styles.min.css-->
+    <link rel="stylesheet" href="{% static 'assets/css/elegant.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/custom_bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/plyr.min.css' %}"/>
+    <!-- cutom css -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}"/>
+    <!--endbuild-->
+</head>
+<body>
+<!-- pre loader -->
+<div id="load">
+    <div class="load__content">
+        <div class="load__icon"><img src="{% static 'assets/images/icons/load.gif' %}" alt="Loading icon"/></div>
+    </div>
+</div>
+
+{% include 'apps/parts/header.html' %}
+
+<div id="content">
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+<!--js files are in assets/js-->
+<script rel="script/javascript" src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'assets/js/slick.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'assets/js/plyr.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'assets/js/masonry.pkgd.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'assets/js/imagesloaded.pkgd.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'assets/js/vimeo.player.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'assets/js/main.js' %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script>   CKEDITOR.replace('editor1', {
+    width: "100%",
+});</script>
+
+<!--end of js files-->
+</body>

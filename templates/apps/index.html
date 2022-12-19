@@ -17,15 +17,14 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-12">
                                 <div class="post-card -full -center">
-                                    <a class="card__cover" href="post.html">
+                                    <a class="card__cover" href="{% url 'post_view' main_blog.slug %}">
                                         <img src="{{ main_blog.main_picture.url }}"/>
                                     </a>
                                     <div class="card__content">
                                         <!-- Content Category -->
                                         <h5 class="card__content-category">{{ main_blog.category.name }}</h5>
                                         <!-- Content Heading -->
-                                        <a class="card__content-title"
-                                           href="{% url 'post_view' main_blog %}">{{ main_blog.title }}</a>
+                                        <a class="card__content-title" href="{% url 'post_view' main_blog.slug %}">{{ main_blog.title }}</a>
                                         <div class="card__content-info">
                                             <!-- Content Author -->
                                             <div class="info__time info__author"><i class="far fa-user"></i>
@@ -41,7 +40,7 @@
                                             </div>
                                         </div>
                                         <!-- post Description -->
-                                        <p class="card__content-description">{{ main_blog.description|safe }}</p>
+                                        <p class="card__content-description">{{ main_blog.description|striptags }}</p>
                                         <a class="more-btn" href="post.html">Read more </a>
                                     </div>
                                 </div>
