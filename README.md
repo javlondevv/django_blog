@@ -28,6 +28,6 @@ FEATURES:
 
 ~ add jquery mask input on sign up and edit profile page
 
-![image](https://user-images.githubusercontent.com/115880509/208607580-1612eb8a-3855-42bd-83d8-c27b3152967b.png)
+<img width="421" alt="image" src="https://user-images.githubusercontent.com/115880509/208607801-2a740684-08e0-4f8c-8b6c-fbf8702a4052.png">
 
 
