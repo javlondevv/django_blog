@@ -26,3 +26,8 @@ FEATURES:
 
 <img width="1439" alt="image" src="https://user-images.githubusercontent.com/115880509/208413127-6e5fa8b8-f44c-41b3-a154-48c5399c5f7a.png">
 
+~ add jquery mask input on sign up and edit profile page
+
+![image](https://user-images.githubusercontent.com/115880509/208607580-1612eb8a-3855-42bd-83d8-c27b3152967b.png)
+
+
