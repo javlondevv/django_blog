@@ -1,0 +1,51 @@
+<div class="col-12 col-md-5 col-lg-4 order-md-2">
+    <div class="blog-sidebar">
+        <div class="blog-sidebar-section -category">
+            <div class="center-line-title">
+                <!-- Blog category sidebar -->
+                <h5>Categories</h5>
+            </div>
+            {% for category in categories %}
+            <a class="category -bar " href="{% url 'blog_category_view' %}?category={{ category.slug }}">
+                <!--Category 1::Background Image size is 340 x 80   -->
+                <div class="category__background"
+                     style="background-image: url({{ category.image.url }})"></div>
+                <h5 class="title">{{ category.name }}</h5>
+                <h5 class="quantity">{{ category.post_count }}</h5>
+            </a>
+            {% endfor %}
+        </div>
+        <!-- Trending Post Side Bar Section-->
+        <div class="blog-sidebar-section -trending-post">
+            <div class="center-line-title">
+                <h5>Trending post</h5>
+            </div>
+            <!--Trending Post 1 -->
+            {% for post in trending %}
+            <div class="trending-post">
+                <div class="trending-post_image">
+                    <div class="rank">{{ forloop.counter }}</div>
+                    <!--Img size is 100 x 100 -->
+                    <img src="{{ post.main_picture.url }}"
+                         alt="Web Accesibility For Beginers.."/>
+                </div>
+                <div class="trending-post_content">
+                    <!-- Category Header -->
+                    <h5>{{ post.category.first }}</h5>
+                    <a href="{% url 'post_view' post.slug%}">{{ post.title }}</a>
+                    <div class="info__time"><i class="far fa-clock"></i>
+                        <p>{{ post.created_at }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Subscribe Form -->
+<!--        <form class="subcribe-box subcribe-box" action="/" method="POST">-->
+<!--            <h5>Subcribe</h5>-->
+<!--            <p>Please don't forget to subscribe.</p>-->
+<!--            <input placeholder="Your email" name="email" type="email"/>-->
+<!--            <a class="btn -normal" href="#">Subcribe</a>-->
+<!--        </form>-->
+    </div>
+</div>

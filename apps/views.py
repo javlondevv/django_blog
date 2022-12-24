@@ -1,5 +1,7 @@
+import os
 from datetime import datetime
 
+import qrcode
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
@@ -13,7 +15,7 @@ from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, FormView, CreateView
 
 from apps.forms import RegisterForm, LoginForm, UpdateForm, EditProfile, AddPostForm, ChangePasswordForm, \
-    LeaveCommentForm
+    LeaveCommentForm, MessageForm
 from apps.models import Post, Category, User, Comment
 
 # Create your views here.
@@ -42,10 +44,18 @@ class GeneratePdf(DetailView):
 
     def get(self, request, *args, **kwargs):
         post = Post.objects.get(slug=kwargs.get('slug'))
+        url = f'{get_current_site(request)}/post/{post.slug}'
+
+        img = qrcode.make(url)
+        img.save(post.slug + '.png')
+
         data = {
             'post': post,
+            'qrcode': f'{os.getcwd()}/{post.slug}.png'
         }
+        print(os.getcwd())
         pdf = render_to_pdf('pdf.html', data)
+        os.remove(f'{post.slug}.png')
         return HttpResponse(pdf, content_type='application/pdf')
 
 
@@ -98,9 +108,15 @@ class BlogListView(ListView):
 class AboutPageView(TemplateView):
     template_name = 'apps/about.html'
 
-
-class ContactPageView(TemplateView):
+class ContactPageView(FormView):
     template_name = 'apps/contact.html'
+    form_class = MessageForm
+    success_url = reverse_lazy('main_page_view')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.save()
+        return super().form_valid(form)
 
 
 class AddPostView(LoginRequiredMixin, CreateView):
@@ -140,8 +156,6 @@ class LoginPageView(LoginView):
     form_class = LoginForm
     template_name = 'apps/auth/login.html'
     next_page = reverse_lazy('main_page_view')
-
-    # success_url = reverse_lazy('main_page_view')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -260,7 +274,8 @@ class ResetPasswordView(AccountSettingMixin, UpdateView):
             if user := self.check_one_time_link(request.GET):
                 return render(request, self.template_name,
                               {'reset_password_user': urlsafe_base64_encode(force_bytes(str(user.pk)))})
-            return render(request, self.template_name, {'type': 'expired', 'error': 'Your link has been already expired !'})
+            return render(request, self.template_name,
+                          {'type': 'expired', 'error': 'Your link has been already expired !'})
         return render(request, self.template_name)
 
 
@@ -280,6 +295,5 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         return context
 
-
-def __repr__(self):
-    return "Item"
+    def __repr__(self):
+        return "Item"

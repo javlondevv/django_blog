@@ -1,5 +1,5 @@
 from celery import shared_task
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -38,6 +38,20 @@ def send_to_gmail(email, domain, _type='activation'):
     result = email.send()
     print('Send to MAIL', template)
     return result
+
+
+
+
+@shared_task
+def send_message_to_gmail(email):
+    subject = 'Thanks for your invitation!'
+    message = 'Your offer has been reviewed.'
+    from_email = EMAIL_HOST_USER
+    recipient_list = [email]
+    print(subject, message, from_email, recipient_list)
+    result = send_mail(subject, message, from_email, recipient_list)
+    return result
+
 
 
 @shared_task

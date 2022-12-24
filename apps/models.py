@@ -6,9 +6,17 @@ from django_resized import ResizedImageField
 
 # Create your models here.
 from django.db.models import EmailField, CharField, Model, SlugField, ImageField, ForeignKey, SET_NULL, ManyToManyField, \
-    DateField, TextField, SET_DEFAULT, CASCADE, TextChoices, IntegerField, DateTimeField, JSONField
+    DateField, TextField, SET_DEFAULT, CASCADE, TextChoices, IntegerField, DateTimeField, JSONField, PROTECT, \
+    BooleanField
 from django.utils.html import format_html
 from django.utils.text import slugify
+
+
+class Info(Model):
+    location = CharField(max_length=255, blank=True, null=True)
+    phone = CharField(max_length=255, unique=True)
+    email = EmailField(max_length=255, unique=True)
+    about = TextField()
 
 
 class User(AbstractUser):
@@ -16,8 +24,6 @@ class User(AbstractUser):
     phone = CharField(max_length=255, unique=True)
     image = ImageField(upload_to='%m', null=True, blank=True, max_length=300)
     biography = TextField(null=True, blank=True)
-
-    # bio = TextField(null=True,blank=True)
 
     class Meta:
         verbose_name = 'Foydalanuvchi'
@@ -129,9 +135,6 @@ class Post(Model):
 
         super().save(force_insert, force_update, using, update_fields)
 
-    # def __str__(self):
-    #     return self.title
-
     @property
     def comment_count(self):
         return self.comment_set.count()
@@ -163,6 +166,20 @@ class Comment(Model):
     class Meta:
         verbose_name = 'Kamentariya'
         verbose_name_plural = 'Kamentariyalar'
+
+
+class Message(Model):
+    author = ForeignKey(User, PROTECT)
+    name = CharField(max_length=255)
+    message = TextField()
+    status = BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Xabar'
+        verbose_name_plural = 'Xabarlar'
+
+    def __str__(self):
+        return self.name
 
 
 class PostViewHistory(Model):

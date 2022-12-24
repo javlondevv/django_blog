@@ -46,7 +46,8 @@
 <body>
 <div class='wrapper'>
     <div class='header'>
-        <p class='title'> {{ post.title|striptags }} </p>
+        <img height="200" width="200" src="{{ qrcode }}"/>
+        <p class='title'> {{ post.title|safe }} </p>
     </div>
     <div>
         {{ post.description|safe }}
@@ -55,20 +56,17 @@
         <div class="post-footer__comment__detail">
             {% for comment in post.comment_set.all %}
                 <div class="comment__item">
-                    <div class="comment__item__avatar">
-                        <img src="{% static 'assets/images/fav.png' %}"
-                             alt="Author avatar"/>
-                    </div>
+                    <h2>{{ forloop.counter }}</h2>
                     <div class="comment__item__content">
                         <div class="comment__item__content__header">
-                            <h5>{{ post.comment.author }}</h5>
+                            <h5>{{ comment.author }}</h5>
                             <div class="data">
                                 <p>
-                                    <i class="far fa-clock"></i>{{ post.comment.created_at|date:'M d, Y' }}
+                                    <i class="far fa-clock"></i>{{ comment.created_at }}
                                 </p>
                             </div>
                         </div>
-                        <p>{{ post.comment.text }}</p>
+                        <p>{{ comment.comment }}</p>
                     </div>
                 </div>
             {% endfor %}

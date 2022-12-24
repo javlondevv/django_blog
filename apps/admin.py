@@ -6,7 +6,8 @@ from django.contrib.admin import ModelAdmin
 from django.utils.html import format_html
 
 from apps import models
-from apps.models import Post, Category, Comment, User
+from apps.models import Post, Category, Comment, User, Info, Message
+from apps.utils.tasks import send_message_to_gmail
 
 
 @admin.register(Post)
@@ -50,6 +51,12 @@ class Post(ModelAdmin):
         return HttpResponseRedirect('../')
 
 
+@admin.register(Info)
+class Info(ModelAdmin):
+    list_display = ('location', 'phone', 'email', 'about')
+    list_display_links = ('location',)
+
+
 @admin.register(Category)
 class Category(ModelAdmin):
     list_display = ('name',)
@@ -68,3 +75,18 @@ class Comment(ModelAdmin):
 class User(ModelAdmin):
     list_display = ('username', 'first_name', 'email', 'is_active')
     exclude = ('last_login', 'groups', 'user_permissions', 'date_joined')
+
+
+@admin.register(Message)
+class MessageAdmin(ModelAdmin):
+    list_display = ('name', 'author', 'status')
+    exclude = ('status',)
+    change_form_template = "admin/custom/change_message_form.html"
+
+    def response_change(self, request, obj: Message):
+        post = request.POST
+        if "send_email" in post:
+            obj.status = True
+            obj.save()
+            send_message_to_gmail.apply_async(args=[obj.author.email], countdown=5)
+        return super().response_change(request, obj)

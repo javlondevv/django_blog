@@ -10,7 +10,7 @@
             <div class="blog-with-sidebar">
                 <div class="row">
                     <!-- Right side bar starts here which contains the Category & Trending Post -->
-                {% include 'apps/parts/trending.html' %}
+                    {% include 'apps/parts/trending.html' %}
                     <!--- End of Right Side Bar ----->
 
                     <div class="col-12 col-md-7 col-lg-8 order-md-1">
@@ -24,7 +24,8 @@
                                         <!-- Content Category -->
                                         <h5 class="card__content-category">{{ main_blog.category.name }}</h5>
                                         <!-- Content Heading -->
-                                        <a class="card__content-title" href="{% url 'post_view' main_blog.slug %}">{{ main_blog.title }}</a>
+                                        <a class="card__content-title"
+                                           href="{% url 'post_view' main_blog.slug %}">{{ main_blog.title }}</a>
                                         <div class="card__content-info">
                                             <!-- Content Author -->
                                             <div class="info__time info__author"><i class="far fa-user"></i>
@@ -40,8 +41,8 @@
                                             </div>
                                         </div>
                                         <!-- post Description -->
-                                        <p class="card__content-description">{{ main_blog.description|striptags }}</p>
-                                        <a class="more-btn" href="post.html">Read more </a>
+                                        <p class="card__content-description">{{ main_blog.description|striptags|safe|truncatechars:200 }}</p>
+                                        <a class="more-btn" href="{% url 'post_view' main_blog.slug%}">Read more </a>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +54,8 @@
                                                 {% for blog in blogs|slice:4 %}
                                                     <div class="col-12 col-sm-6">
                                                         <div class="post-card -small">
-                                                            <a class="card__cover" href="{% url 'post_view' blog.slug %}">
+                                                            <a class="card__cover"
+                                                               href="{% url 'post_view' blog.slug %}">
                                                                 <!-- img size 370 x 247 -->
                                                                 <img src="{{ blog.main_picture.url }}"/></a>
                                                             <!-- Post content -->

@@ -1,0 +1,37 @@
+{% load static %}
+<header class="theme-default">
+    <div id="search-box">
+        <div class="container">
+            <form action="/" method="POST">
+                <input type="text" placeholder="Searching for news" name="search"/>
+                <button><i class="fas fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header-wrapper">
+            <a class="header__logo" href="{% url 'main_page_view' %}"><img src="{% static 'assets/images/logo1.png' %}" alt="Logo"/></a>
+            <nav>
+                <ul>
+                    <li class="nav-item {% if request.path == '/' %}active{% endif %}"><a
+                            href="{% url 'main_page_view' %}">Home</a></li>
+                    <li class="nav-item {% if request.path == '/blog-category' %}active{% endif %}"><a
+                            href="{% url 'blog_category_view' %}">Blog</a></li>
+                    <li class="nav-item {% if request.path == '/about' %}active{% endif %}"><a
+                            href="{% url 'about_view' %}">About</a></li>
+                    <li class="nav-item {% if request.path == '/contact' %}active{% endif %}"><a
+                            href="{% url 'contact_view' %}">Contact</a></li>
+                    <li class="nav-item {% if request.path == '/add-post' %}active{% endif %}"><a
+                            href="{% url 'add_post_view' %}">Add Post</a></li>
+                </ul>
+            </nav>
+            {% if user.is_anonymous %}
+                <a class="btn btn-outline-primary" href="{% url 'register_view' %}">Sign up</a>
+                <a class="btn btn-outline-primary" href="{% url 'login_view' %}">Log in</a>
+            {% else %}
+                <a class="btn btn-outline-primary" href="{% url 'edit_profile_view' %}">Edit Profile</a>
+                <a class="btn btn-outline-primary" href="{% url 'logout_view' %}">Log out</a>
+            {% endif %}
+        </div>
+    </div>
+</header>

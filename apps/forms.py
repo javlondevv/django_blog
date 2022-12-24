@@ -6,7 +6,7 @@ from django.forms import ModelForm, PasswordInput, CharField, ModelMultipleChoic
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
-from apps.models import User, Comment, Category, Post
+from apps.models import User, Comment, Category, Post, Message
 
 
 class RegisterForm(ModelForm):
@@ -110,3 +110,11 @@ class ChangePasswordForm(ModelForm):
         model = User
         fields = ('password',)
 
+
+class MessageForm(ModelForm):
+    name = CharField(max_length=255)
+    message = CharField()
+
+    class Meta:
+        model = Message
+        fields = ('name', 'message')

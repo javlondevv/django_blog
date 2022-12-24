@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from apps.views import BlogListView, AboutPageView, ContactPageView, BlogPageView, UserUpdateView, RegisterPageView, \
     LoginPageView, CustomLogoutView, MainPageView, ProfileSettingView, AddPostView, GeneratePdf, ChangePasswordView, \
@@ -22,4 +22,5 @@ urlpatterns = [
     path('edit-profile/', ProfileSettingView.as_view(), name='edit_profile_view'),
     path('add-post/', AddPostView.as_view(), name='add_post_view'),
 
+    path('oauth/', include('social_django.urls', namespace='social')),
 ]
