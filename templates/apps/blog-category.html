@@ -36,7 +36,7 @@
                                             React</a>
                                         <div class="card__content-info">
                                             <div class="info__time"><i class="far fa-clock"></i>
-                                                <p>{{ blog.created_at }}</p>
+                                                <p>{{ blog.created_at|date:"d M ,Y" }} {{ blog.created_at|time:"H:i" }}</p>
                                             </div>
                                             <div class="info__comment"><i class="far fa-comment"></i>
                                                 <p>{{ blog.comment_count }}</p>

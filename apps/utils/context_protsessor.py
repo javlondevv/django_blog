@@ -1,6 +1,6 @@
 from datetime import date
 from django.db.models import Count
-from apps.models import Category, Post, PostViewHistory, AboutUs
+from apps.models import Category, Post, PostViewHistory, AboutUs, Info
 
 
 def context_category(request):
@@ -10,9 +10,9 @@ def context_category(request):
     }
 
 
-def context_about(request):
+def context_info(request):
     return {
-        'about': AboutUs.objects.first()
+        'info': Info.objects.first()
     }
 
 

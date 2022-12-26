@@ -12,7 +12,7 @@
                         <div class="contact-method">
                             <p><i class="fas fa-map-marker-alt"></i>{{info.location}}</p>
                             <p><i class="far fa-mobile-android"></i>{{info.phone}}</p>
-                            <p><i  class="far fa-envelope-open"></i>{{info.email}}</p>
+                            <p><i class="far fa-envelope-open"></i>{{info.email}}</p>
                         </div>
                     </div>
                 </div>
@@ -24,9 +24,9 @@
                         <div class="feature-post-block">
                             {% for object in custom_posts|slice:3 %}
                             <div class="post-card -tiny">
-                                <a class="card__cover" href="{% url  'blog_category_view' %}">
+                                <a class="card__cover" href="{% url  'post_view' object.slug %}">
                                     <!-- img size 360 x 360 -->
-                                    <img src="{{ object.main_picture.url }}" alt="{{ object.description }}"/>
+                                    <img src="{{ object.main_picture.url }}"/>
                                 </a>
                                 <div class="card__content">
                                     <h5 class="card__content-category">Open source</h5>
@@ -53,18 +53,10 @@
                                 <div class="center-line-title">
                                     <h5>Blog Tags</h5>
                                 </div>
-                                {% for tag in tags %}
-                                <a class="tag-btn"
-                                   href="{% url 'blog_category_view' %}?category={{ tag.slug }}">{{ tag.name }}</a>
-
-
-                                {% endfor %}
-
                                 <div class="tags-group">
                                     {% for category in custom_categories|slice:3 %}
-                                    <a class="tag-btn" href="?category={{ category.slug }}">{{ category.name }}</a>
+                                    <a class="tag-btn" href="{%url 'blog_category_view'%}?category={{ category.slug }}">{{ category.name }}</a>
                                     {% endfor %}
-
                                 </div>
                             </div>
                             <!-- Social Media -->
@@ -72,18 +64,20 @@
                                 <div class="center-line-title">
                                     <h5>Follow us</h5>
                                 </div>
-                                <div class="social-block"><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                                <div class="social-block"><a href="https://www.facebook.com/"><i
+                                        class="fab fa-facebook-f"></i></a>
                                     <a href="https://twitter.com/Javlon_dev"><i class="fab fa-twitter"></i></a>
-                                    <a href="https://www.instagram.com/javlon_developer/"><i class="fab fa-instagram"></i></a>
+                                    <a href="https://www.instagram.com/javlon_developer/"><i
+                                            class="fab fa-instagram"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="copyright">
+                <p>© 2022, Fuse - All rights reserved.</p>
+            </div>
         </div>
-        <div class="copyright">
-            <p>© 2022, Fuse - All rights reserved.</p>
-        </div>
-    </div>
     </div>
 </footer>

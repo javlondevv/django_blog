@@ -1,71 +1,47 @@
-
+{% extends 'apps/parts/base.html' %}
 {% block title %}
-About
+    About
 {% endblock title %}
 
 {% block content %}{% load static %}
 
     <div class="no-pd" id="content">
         <div class="container">
-              <div class="breadcrumb">
+            <div class="breadcrumb">
                 <ul>
-                  <li>
-                      <a href="index.html"> <i class="fas fa-home"></i>Home</a>
+                    <li>
+                        <a href="index.html"> <i class="fas fa-home"></i>Home</a>
                     </li>
-                  <li class="active">
-                      <a href="#">About</a>
+                    <li class="active">
+                        <a href="about.html">About</a>
                     </li>
                 </ul>
-              </div>
-          <div class="about-us">
-            <div class="row align-items-center">
-              <div class="col-12 col-sm-8 col-md-6 mx-auto">
-                  <!-- image size 560 x 522 -->
-                <div class="about-us__image">
-                    <img src="{{'media/12/cat-7533717-1280.jpg'}}" alt="About us image"/>
-                </div>
-              </div>
-              <div class="col-12 col-md-6">
-                <div class="about-us__content">
-                  <h3>Thank you for visit out my website.</h3>
-                  <p>This template makes create a blogs in a modern layout
-                            to break up the ample white space. The result: a clean and
-                            enjoyable reading experience. The top of the page puts the
-                            brand story (or other introductory text) first, supported by
-                            a large blog that speaks for itself. The pops of blog can be
-                            customized to your inform people, drawing emphasis to the most important
-                            elements you want to highlight.</p>
-                  <div class="follow">
-{#                    <p>Follow us:</p>#}
-{#                    <div class="social-block">#}
-{#                        <a href="#"><i class="fab fa-facebook-f"></i></a>#}
-{#                        <a href="#"><i class="fab fa-twitter"></i></a>#}
-{#                        <a href="#"><i class="fab fa-instagram"></i></a>#}
-{#                        <a href="#"><i class="fab fa-dribbble"></i></a>#}
+            </div>
+            <div class="about-us">
+                <div class="row align-items-center">
+                    <div class="col-12 col-sm-8 col-md-6 mx-auto">
+                        <!-- image size 560 x 522 -->
+                        <div class="about-us__image">
+                            <img src="{{ 'media/12/cat-7533717-1280.jpg' }}" alt="About us image"/>
+                        </div>
                     </div>
-                  </div>
+                    <div class="col-12 col-md-6">
+                        <div class="about-us__content">
+                            <h3>Thank you for visit out my website.</h3>
+                            <p>This template makes create a blogs in a modern layout
+                                to break up the ample white space. The result: a clean and
+                                enjoyable reading experience. The top of the page puts the
+                                brand story (or other introductory text) first, supported by
+                                a large blog that speaks for itself. The pops of blog can be
+                                customized to your inform people, drawing emphasis to the most important
+                                elements you want to highlight.</p>
+                            <div class="follow">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-        <div class="container">
-          <div class="subcribe-bar">
-            <div class="row">
-              <div class="col-12 col-md-6">
-                <div class="subcribe-bar__content">
-                  <h5>Don’t miss our future updates!</h5>
-                  <h3>Get Subscribe today!</h3>
-                </div>
-              </div>
-              <div class="col-12 col-md-6">
-                <form class="subcribe-bar__form" action="/">
-                  <input type="text" placeholder="You email"/>
-                  <button class="btn -normal">Subcribe  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
- {% endblock content%}
+    </div>
+    </div>
+{% endblock content %}

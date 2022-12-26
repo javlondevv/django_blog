@@ -16,7 +16,7 @@ from django.views.generic import TemplateView, ListView, DetailView, UpdateView,
 
 from apps.forms import RegisterForm, LoginForm, UpdateForm, EditProfile, AddPostForm, ChangePasswordForm, \
     LeaveCommentForm, MessageForm
-from apps.models import Post, Category, User, Comment
+from apps.models import Post, Category, User, Comment, PostViewHistory
 
 # Create your views here.
 from apps.utils import render_to_pdf, send_to_gmail, send_to_contact, one_time_token
@@ -108,6 +108,7 @@ class BlogListView(ListView):
 class AboutPageView(TemplateView):
     template_name = 'apps/about.html'
 
+
 class ContactPageView(FormView):
     template_name = 'apps/contact.html'
     form_class = MessageForm
@@ -137,6 +138,11 @@ class BlogPageView(DetailView):
     query_pk_and_slug = 'slug'
     queryset = Post.active.all()
     context_object_name = 'post'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['views'] = PostViewHistory.objects.all()
+        return context
 
 
 class RegisterPageView(FormView):
