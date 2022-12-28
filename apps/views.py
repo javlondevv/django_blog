@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_str, force_bytes
@@ -37,6 +37,16 @@ class AccountSettingMixin(View):
             user.save()
             return user
         return False
+
+
+class SearchView(View):
+    def post(self, request, *args, **kwargs):
+        like = request.POST.get('like')
+        data = {
+            'posts': list(Post.objects.filter(title__icontains=like).values('title', 'image', 'slug')),
+            'domain': get_current_site(request).domain
+        }
+        return JsonResponse(data)
 
 
 class GeneratePdf(DetailView):

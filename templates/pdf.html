@@ -49,6 +49,13 @@
         <img height="200" width="200" src="{{ qrcode }}"/>
         <p class='title'> {{ post.title|safe }} </p>
     </div>
+    <div class='hrItem'>
+        <img id='barcode'
+             src="https://api.qrserver.com/v1/create-qr-code/?data={{ qrcode }}&amp;size=100x100"
+             title="HELLO"
+             width="50"
+             height="50"/>
+    </div>
     <div>
         {{ post.description|safe }}
     </div>
