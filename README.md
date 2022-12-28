@@ -31,3 +31,9 @@ FEATURES:
 <img width="421" alt="image" src="https://user-images.githubusercontent.com/115880509/208607801-2a740684-08e0-4f8c-8b6c-fbf8702a4052.png">
 
 
+
+
+<img width="767" alt="image" src="https://user-images.githubusercontent.com/115880509/209796245-851c21fb-ed69-462f-a593-8bbb8f764da7.png">
+
+add qr code in pdf
+
