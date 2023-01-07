@@ -13,7 +13,7 @@ from django.utils.text import slugify
 
 
 class Info(Model):
-    location = CharField(max_length=255, blank=True, null=True)
+    location = CharField(max_length=255, blank=True, nfull=True)
     phone = CharField(max_length=255, unique=True)
     email = EmailField(max_length=255, unique=True)
     about = TextField()
@@ -188,3 +188,6 @@ class PostViewHistory(Model):
 
     def str(self):
         return f'{self.post.title} at {self.viewed_at}'
+
+
+
